@@ -53,7 +53,7 @@ function EditProfilePopup(props) {
             placeholder="Имя"
             id="name-input"
             className="popup__input popup__input_type_name"
-            value={name}
+            value={name || ''}
             name="firstname"
             required
             minLength={2}
@@ -71,7 +71,7 @@ function EditProfilePopup(props) {
             placeholder="Профессия"
             id="description-input"
             className="popup__input popup__input_type_title"
-            value={description}
+            value={description || ''}
             name="lastname"
             required
             minLength={2}
