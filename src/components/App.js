@@ -12,6 +12,7 @@ import Login from "./Login";
 import Register from "./Register";
 import React from "react";
 import api from "../utils/api";
+import auth from "../utils/auth";
 import {
   CurrentUserContext,
   DataUserContext,
@@ -165,7 +166,7 @@ function App() {
   React.useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      api.getContent(token)
+      auth.getContent(token)
       .then((data) => {
         if (data) {
           changeLoggedIn();
@@ -189,7 +190,7 @@ function App() {
 
   function handleLoginSubmit(e) {
     e.preventDefault();
-    api
+    auth
       .authorize(userEmail, userPassword)
       .then((res) => {
         if (res.token) {
@@ -208,7 +209,7 @@ function App() {
 
   function handleRegisterSubmit(e) {
     e.preventDefault();
-    api
+    auth
       .register(userEmail, userPassword)
       .then((res) => {
         if (res.data) {

@@ -47,7 +47,7 @@ class Api {
       headers: {
         authorization: this.authorization,
       },
-    });
+    }).then(this._checkResponse);;
   }
 
   likeCard(cardId, isLiked) {
@@ -73,7 +73,7 @@ class Api {
   }
 
   getArrCard() {
-    return fetch("https://mesto.nomoreparties.co/v1/cohort-23/cards", {
+    return fetch(`${this.baseUrl}/cards`, {
       headers: {
         authorization: this.authorization,
       },
@@ -86,64 +86,6 @@ class Api {
     }
     return Promise.reject(`Ошибка ${res.status}`);
   }
-
-  register = (emailUser, passwordUser) => {
-    return fetch(`https://auth.nomoreparties.co/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        password: passwordUser,
-        email: emailUser,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
-      .then((res) => {
-        return res;
-      });
-  };
-
-  authorize = (emailUser, passwordUser) => {
-    return fetch(`https://auth.nomoreparties.co/signin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        password: passwordUser,
-        email: emailUser,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
-      .then((res) => {
-        return res;
-      });
-  };
-
-  getContent = (token) => {
-    return fetch(`https://auth.nomoreparties.co/users/me`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      });
-  };
 }
 
 const api = new Api({
