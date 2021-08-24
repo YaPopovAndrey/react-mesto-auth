@@ -1,7 +1,6 @@
 import React from "react";
 
 function ImagePopup(props) {
-  console.log(props);
   return (
     <div className={`popup popup_place_photo ${props.card && "popup_opened"}`}>
       <div className="popup__popup-close" onClick={props.onClose} />
