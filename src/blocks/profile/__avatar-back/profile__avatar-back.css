@@ -1,0 +1,22 @@
+.profile__avatar-back:before {
+    background-image: url(../../../images/pencil.svg);
+    background-position: center;
+    background-size: 26px 26px;
+    background-repeat: no-repeat;
+    content: '';
+    position: absolute;
+    background-color: #000000;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.profile__avatar-back:hover:before {
+    opacity: 0.8;
+}
+
+.profile__avatar-back:hover {
+    cursor:  pointer;
+}

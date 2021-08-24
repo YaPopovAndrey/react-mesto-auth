@@ -1,0 +1,7 @@
+.popup__input-form {
+    position: relative;
+    margin: 0;
+    min-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}

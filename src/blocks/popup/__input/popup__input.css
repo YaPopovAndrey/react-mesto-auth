@@ -1,0 +1,36 @@
+.popup__input {
+    border: none;
+    border-bottom: rgba(0, 0, 0, 0.2) 1px solid;
+    font-family: 'Inter', Arial, sans-serif;
+    padding: 0;
+    min-height: 27px;
+    font-size: 14px;
+    line-height: 17px;
+    border-radius: 0;
+    width: 100%;
+}
+
+.popup__input:hover {
+    border: none;
+    border-bottom: rgba(0, 0, 0, 0.6) 1px solid;
+}
+
+.popup__input:first-child {
+    margin: 0 0 27px 0;
+}
+
+@media screen and (max-width: 500px) {
+    .popup__input:first-child {
+        margin: 0 0 30px 0;
+    }
+}
+
+.popup__input:last-of-type {
+    margin: 0 0 48px 0;
+}
+
+@media screen and (max-width: 500px) {
+    .popup__input:last-of-type {
+        margin: 0 0 45px 0;
+    }
+}

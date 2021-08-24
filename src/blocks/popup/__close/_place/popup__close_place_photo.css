@@ -1,0 +1,11 @@
+.popup__close_place_photo {
+    top: -47px;
+    right: -45px;
+}
+
+@media screen and (max-width: 500px) {
+    .popup__close_place_photo {
+        right: -30px;
+        top: -32px;
+    }
+}

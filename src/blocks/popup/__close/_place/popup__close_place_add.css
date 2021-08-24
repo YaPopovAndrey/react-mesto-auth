@@ -1,0 +1,9 @@
+@media screen and (max-width: 500px) {
+    .popup__close_place_add {
+        background-size: 36px 36px;
+        width: 36px;
+        height: 36px;
+        right: -28px;
+        top: -32px;
+    }
+}

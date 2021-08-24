@@ -1,0 +1,13 @@
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 47.25px 0 0 0;
+    width: 100%;
+}
+
+@media screen and (max-width: 769px) {
+    .grid {
+        width: calc(100% - 19px * 2);
+        margin: 36px auto 20px auto;
+    }
+}

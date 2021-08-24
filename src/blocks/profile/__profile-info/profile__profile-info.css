@@ -1,0 +1,9 @@
+.profile__profile-info {
+    margin: 22px 0 25px 30px;
+}
+
+@media screen and (max-width: 767px) {
+    .profile__profile-info {
+        margin: 0;
+    }
+}
