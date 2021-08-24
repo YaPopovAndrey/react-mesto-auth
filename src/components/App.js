@@ -53,7 +53,7 @@ function App() {
     api
       .getProfileValues()
       .then((result) => {
-        helpSetCurrentUser(result);
+        setCurrentUser(result);
       })
       .catch((err) => {
         console.log(err);
@@ -64,7 +64,7 @@ function App() {
     api
       .setUserInfo(opt)
       .then((result) => {
-        helpSetCurrentUser(result);
+        setCurrentUser(result);
         closeAllPopups();
       })
       .catch((err) => {
@@ -76,21 +76,12 @@ function App() {
     api
       .submitNewAvatar(opt)
       .then((result) => {
-        helpSetCurrentUser(result);
+        setCurrentUser(result);
         closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  function helpSetCurrentUser(result) {
-    setCurrentUser({
-      name: result.name,
-      about: result.about,
-      avatar: result.avatar,
-      _id: result._id,
-    });
   }
 
   // Получение массива карточек
