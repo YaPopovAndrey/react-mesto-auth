@@ -1,45 +1,18 @@
 import React from "react";
-import api from "../utils/api";
-import { useHistory } from "react-router-dom";
-import { DataUserContext } from "../contexts/CurrentUserContext";
 
 function Login(props) {
-  const [userEmail, setUserEmail] = React.useState("");
-  const [userPassword, setUserPassword] = React.useState("");
-  const history = useHistory();
-  const dataUser = React.useContext(DataUserContext);
-
   const handleUserEmail = (e) => {
-    setUserEmail(e.target.value);
+    props.setUserEmail(e.target.value);
   };
 
   const handleUserPassword = (e) => {
-    setUserPassword(e.target.value);
+    props.setUserPassword(e.target.value);
   };
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    api
-      .authorize(userEmail, userPassword)
-      .then((res) => {
-        if (res.token) {
-          dataUser.email = userEmail;
-          localStorage.setItem("token", res.token);
-          props.changeLoggedIn();
-          history.push("/");
-        }
-      })
-      .catch((err) => {
-        props.setRegistrationStatus(false);
-        props.popupOpen();
-        console.log(err);
-      });
-  }
 
   return (
     <div className="login">
       <h1 className="login__title">Вход</h1>
-      <form className="login__form" onSubmit={handleSubmit}>
+      <form className="login__form" onSubmit={props.onLogin}>
         <div>
           <input
             placeholder="Email"
@@ -50,7 +23,7 @@ function Login(props) {
             minLength={2}
             maxLength={50}
             autoComplete="on"
-            value={userEmail}
+            value={props.userEmail}
             onChange={handleUserEmail}
             type="email"
           />
@@ -62,7 +35,7 @@ function Login(props) {
             required
             minLength={2}
             maxLength={50}
-            value={userPassword}
+            value={props.userPassword}
             onChange={handleUserPassword}
             type="password"
           />

@@ -165,7 +165,8 @@ function App() {
   React.useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      api.getContent(token).then((data) => {
+      api.getContent(token)
+      .then((data) => {
         if (data) {
           changeLoggedIn();
 
@@ -176,9 +177,69 @@ function App() {
 
           history.push("/");
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
     }
   }, []);
+
+  const [userEmail, setUserEmail] = React.useState("");
+  const [userPassword, setUserPassword] = React.useState("");
+
+  function handleLoginSubmit(e) {
+    e.preventDefault();
+    api
+      .authorize(userEmail, userPassword)
+      .then((res) => {
+        if (res.token) {
+          dataUser.email = userEmail;
+          localStorage.setItem("token", res.token);
+          changeLoggedIn();
+          history.push("/");
+        }
+      })
+      .catch((err) => {
+        setRegistrationStatus(false);
+        handleInfoTooltipPopupOpen();
+        console.log(err);
+      });
+  }
+
+  function handleRegisterSubmit(e) {
+    e.preventDefault();
+    api
+      .register(userEmail, userPassword)
+      .then((res) => {
+        if (res.data) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              email: res.data.email,
+              _id: res.data._id,
+            })
+          );
+          setRegistrationStatus(true);
+          handleInfoTooltipPopupOpen();
+        }
+      })
+      .catch(() => {
+        setRegistrationStatus(false);
+        handleInfoTooltipPopupOpen();
+      });
+  }
+
+  React.useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+
+    document.addEventListener('keydown', closeByEscape)
+    
+    return () => document.removeEventListener('keydown', closeByEscape)
+}, [])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -189,25 +250,22 @@ function App() {
             <Switch>
               <Route path="/sign-up">
                 <Register
-                  popupOpen={handleInfoTooltipPopupOpen}
                   setRegistrationStatus={setRegistrationStatus}
-                />
-                <InfoTooltip
-                  isOpen={InfoTooltipPopupOpen}
-                  onClose={closeAllPopups}
-                  registrationStatus={registrationStatus}
+                  onRegister={handleRegisterSubmit}
+                  setUserEmail={setUserEmail}
+                  setUserPassword={setUserPassword}
+                  userEmail={userEmail}
+                  userPassword={userPassword}
                 />
               </Route>
               <Route path="/sign-in">
                 <Login
-                  changeLoggedIn={changeLoggedIn}
-                  popupOpen={handleInfoTooltipPopupOpen}
                   setRegistrationStatus={setRegistrationStatus}
-                />
-                <InfoTooltip
-                  isOpen={InfoTooltipPopupOpen}
-                  onClose={closeAllPopups}
-                  registrationStatus={registrationStatus}
+                  onLogin={handleLoginSubmit}
+                  setUserEmail={setUserEmail}
+                  setUserPassword={setUserPassword}
+                  userEmail={userEmail}
+                  userPassword={userPassword}
                 />
               </Route>
               <ProtectedRoute path="/" loggedIn={loggedIn.loggedIn}>
@@ -243,6 +301,11 @@ function App() {
                 <Footer />
               </ProtectedRoute>
             </Switch>
+            <InfoTooltip
+                  isOpen={InfoTooltipPopupOpen}
+                  onClose={closeAllPopups}
+                  registrationStatus={registrationStatus}
+                />
           </div>
         </div>
       </DataUserContext.Provider>

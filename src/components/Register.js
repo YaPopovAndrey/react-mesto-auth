@@ -1,53 +1,26 @@
 import React from "react";
-import api from "../utils/api";
 import { Link } from "react-router-dom";
 
 function Register(props) {
-  const [userEmail, setUserEmail] = React.useState("");
-  const [userPassword, setUserPassword] = React.useState("");
-
   const handleUserEmail = (e) => {
-    setUserEmail(e.target.value);
+    props.setUserEmail(e.target.value);
   };
 
   const handleUserPassword = (e) => {
-    setUserPassword(e.target.value);
+    props.setUserPassword(e.target.value);
   };
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    api
-      .register(userEmail, userPassword)
-      .then((res) => {
-        if (res.data) {
-          localStorage.setItem(
-            "user",
-            JSON.stringify({
-              email: res.data.email,
-              _id: res.data._id,
-            })
-          );
-          props.setRegistrationStatus(true);
-          props.popupOpen();
-        }
-      })
-      .catch(() => {
-        props.setRegistrationStatus(false);
-        props.popupOpen();
-      });
-  }
 
   return (
     <div className="login">
       <h1 className="login__title">Регистрация</h1>
-      <form className="login__form" onSubmit={handleSubmit}>
+      <form className="login__form" onSubmit={props.onRegister}>
         <div>
           <input
             placeholder="Email"
             id="email-input"
             className="login__input"
             name="email"
-            value={userEmail}
+            value={props.userEmail}
             required
             minLength={2}
             maxLength={50}
@@ -60,7 +33,7 @@ function Register(props) {
             id="password-input"
             className="login__input"
             name="code"
-            value={userPassword}
+            value={props.userPassword}
             required
             minLength={2}
             maxLength={50}

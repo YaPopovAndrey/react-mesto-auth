@@ -18,7 +18,6 @@ function PopupWithForm(props) {
         <form
           className="popup__form popup__form-editing"
           name={props.name}
-          id="popupName"
           onSubmit={props.onSubmit}
         >
           {props.children}
